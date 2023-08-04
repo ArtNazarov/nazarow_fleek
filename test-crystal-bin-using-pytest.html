@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html><head>
+<!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script><meta charset="utf-8"><title>My Site-Пример расширения на Crystal и его тестирование с помощью PyTest</title>
+</head><body>
+ <nav class="navbar navbar-light" style="background-color: #e3f2fd;">   
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">Nazarow.ru</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link" href="/">Главная</a></li>
+         <li class="nav-item"><a class="nav-link" href="/section_htmlbuilder.html">HtmlBuilder</a></li>
+         <li class="nav-item"><a class="nav-link" href="/section_linux.html">Linux</a></li>
+         <li  class="nav-item"><a class="nav-link" href="/section_yii2.html">Yii2</a></li>
+         <li  class="nav-item"><a class="nav-link" href="/section_android.html">Android</a></li>
+         <li  class="nav-item"><a class="nav-link" href="/section_windows.html">Windows</a></li>
+         <li  class="nav-item"><a class="nav-link" href="/section_etc.html">Прочие заметки</a></li>
+         <li class="nav-item"><a class="nav-link" href='/support.html'>Контакты</a></li>
+      </ul>
+      
+    </div>
+  </div>
+</nav> 
+<h1>Пример расширения на Crystal и его тестирование с помощью PyTest</h1><p>HtmlBuilder имеет поддержку расширений, посмотрим как написать простейший модуль на языке Crystal и протестируем его в pytest<!--more-->
+
+Начнем с установки компилятора
+<pre>sudo pacman -S crystal shards</pre>
+Затем создадим исполняемый файл Crystal, который откроет файл youtube.inp , в котором будет id ролика, и создаст файл youtube.out, в котором будет лежать  html разметка для плеера
+<pre># ВХОДНОЙ ФАЙЛ ИМЕЕТ ИМЯ МОДУЛЬ.inp
+path_source = "youtube.inp"
+# у выходного .out
+path_dest = "youtube.out"
+
+# создаем указатель на файл источник
+input_file = File.new path_source, "r"
+# считываем контент
+youtube_id = File.read path_source
+# шаблон плеера
+template = "&lt;iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/test-crystal-bin-using-pytest\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen&gt;&lt;\/iframe&gt;"
+# делаем замену
+html = template.sub("test-crystal-bin-using-pytest",youtube_id)
+# по смыслу это ID ролика
+# открываем указатель на запись
+
+File.write( path_dest, html)
+input_file.close
+</pre>
+Теперь расширение надо скомпилировать. Сохраним исходный код в youtube.cr
+
+<code>crystal build youtube.cr</code>
+
+В каталоге появится файл youtube, который можно запустить из консоли ./youtube
+
+Установим с помощью pip pytest для прогона тестов
+
+<code>pip install pytest</code>
+
+Следующим шагом является написание теста на Python
+<pre>import subprocess
+def test_youtube():
+example_input = open("youtube.inp", "w")
+example_input.write("8jed0wIQv_A")
+example_input.close()
+subprocess.run(["/home/artem/youtube-crystal/youtube", ""]);
+example_output = open("youtube.out", "r");
+# ожидаем
+expected = """&lt;iframe width="560" height="315" src="https://www.youtube.com/embed/8jed0wIQv_A" title="YouTube video player" frameborder="0" allow="ac
+celerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen&gt;&lt;/iframe&gt;\n"""
+# считываем
+html = example_output.read()
+
+example_output.close
+# сравнили
+assert html == expected</pre>
+Идея теста простая - подготовим входные данные, вызовем внешнюю программу, затем сравним ожидаемый результат с эталоном
+
+Сохраним файл под именем test_youtube.py. Запустим тест с помощью pytest
+
+pytest test_youtube.py
+
+Результат показывает, что модуль прошел тестирование
+
+<code> = test session starts = </code>
+<code>platform linux -- Python 3.10.7, pytest-7.2.0, pluggy-1.0.0 </code>
+<code> </code>
+<code>plugins: anyio-3.6.1 </code>
+<code>collected 1 item                                                                                                                                             </code>
+
+<code>test_youtube.py .                                                                                                                                     [100%] </code>
+
+<code> = 1 passed in 0.04s = </code></p>
+Теги документа 
+
+</body></html>
+

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html><head>
+<!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script><meta charset="utf-8"><title>My Site-Пишем модуль для HtmlBuilder на языке Python</title>
+</head><body>
+ <nav class="navbar navbar-light" style="background-color: #e3f2fd;">   
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">Nazarow.ru</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link" href="/">Главная</a></li>
+         <li class="nav-item"><a class="nav-link" href="/section_htmlbuilder.html">HtmlBuilder</a></li>
+         <li class="nav-item"><a class="nav-link" href="/section_linux.html">Linux</a></li>
+         <li  class="nav-item"><a class="nav-link" href="/section_yii2.html">Yii2</a></li>
+         <li  class="nav-item"><a class="nav-link" href="/section_android.html">Android</a></li>
+         <li  class="nav-item"><a class="nav-link" href="/section_windows.html">Windows</a></li>
+         <li  class="nav-item"><a class="nav-link" href="/section_etc.html">Прочие заметки</a></li>
+         <li class="nav-item"><a class="nav-link" href='/support.html'>Контакты</a></li>
+      </ul>
+      
+    </div>
+  </div>
+</nav> 
+<h1>Пишем модуль для HtmlBuilder на языке Python</h1><p>Модуль в терминах генератора сайтов - внешняя программа, которая читает параметры, переданные в странице. <!--more-->
+
+Допустим, мы хотим написать модуль к HtmlBuilder, который будет выводить приветствие. Если в странице написано <code>hello_world мир</code>
+то модуль должен отдать строку Привет, мир.
+
+Предварительно установим pyinstaller, поскольку он понадобится для сборки двоичного исполнимого файла
+
+<code>pip install pyinstaller</code>
+
+В новом файле hello_world.py добавим строки
+<pre>import sys
+def main():
+	mod_param = sys.argv[1]
+	mod = open("hello_world.tmp", "w")
+	mod.write("ПРИВЕТ, "+ mod_param+ "!")
+	mod.close()
+main()
+
+</pre>
+Объяснение - мы читаем первый аргумент из командной строки, который по смыслу будет именем. Затем по соглашению после вызова модуля генератор попытается прочесть как ответ - файл с именем модуля и расширением .tmp, то есть нужно просто скинуть данные в hello_world.tmp.  Аналогично можно написать модуль с помощью другого языка программирования.
+
+Теперь соберем расширение командой
+
+<code>pyinstaller hello_world.py --onefile</code>
+
+В папке dist появится исполняемый файл hello_world, который нужно скопировать в каталог с программой.
+
+Теперь в настройках на вкладке Специальное ставим галочку напротив Использовать модуль
+
+После сборки открываем выбранную страницу и видим, что текст  <code>%hello_world мир%</code> заменился на ПРИВЕТ, мир!</p>
+Теги документа 
+
+</body></html>
+

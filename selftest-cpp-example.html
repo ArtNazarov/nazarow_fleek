@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html><head>
+<!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script><meta charset="utf-8"><title>My Site-О необходимости самотестирования программы, пример</title>
+</head><body>
+ <nav class="navbar navbar-light" style="background-color: #e3f2fd;">   
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">Nazarow.ru</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link" href="/">Главная</a></li>
+         <li class="nav-item"><a class="nav-link" href="/section_htmlbuilder.html">HtmlBuilder</a></li>
+         <li class="nav-item"><a class="nav-link" href="/section_linux.html">Linux</a></li>
+         <li  class="nav-item"><a class="nav-link" href="/section_yii2.html">Yii2</a></li>
+         <li  class="nav-item"><a class="nav-link" href="/section_android.html">Android</a></li>
+         <li  class="nav-item"><a class="nav-link" href="/section_windows.html">Windows</a></li>
+         <li  class="nav-item"><a class="nav-link" href="/section_etc.html">Прочие заметки</a></li>
+         <li class="nav-item"><a class="nav-link" href='/support.html'>Контакты</a></li>
+      </ul>
+      
+    </div>
+  </div>
+</nav> 
+<h1>О необходимости самотестирования программы, пример</h1><p>Пример программы, которая выполняет самотестирование.
+
+<!--more-->Рассмотрим программу, которая складывает и вычитает числа.
+<pre class="EnlighterJSRAW" data-enlighter-language="cpp">#include &lt;cstdlib&gt;
+#include &lt;iostream&gt;
+
+using namespace std;
+
+int sum(int a, int b) {
+return a+b+1;
+}
+
+int mul(int a, int b){
+return a*b*2;
+}
+
+bool testSum(){
+ int a = 3;
+ int b = 2;
+ int expected = 5;
+ return 5 == sum(a, b);
+}
+
+bool testMul(){
+ int a = 5;
+ int b = 2;
+ int expected = 10;
+ return 10 == mul(a, b);
+}
+
+bool selfTest(){
+ bool flag = true;
+ flag = flag &amp;&amp; testSum();
+ flag = flag &amp;&amp; testMul();
+ return flag;
+}
+
+
+
+int main(){
+
+ if ( ! selfTest() ) {
+                cout &lt;&lt; "self test error";
+                exit(0);
+        }
+else
+   {
+        cout &lt;&lt; "self test: OK \n\r";
+   };
+
+ int a = 0;
+ int b = 0;
+ int res = 0;
+ char outbuf[50];
+ char ch;
+
+ cin &gt;&gt; a;
+ cin &gt;&gt; b;
+ res = mul(a, b);
+ sprintf(outbuf,  "a * b = %d\n\r",  res);
+ cout &lt;&lt; outbuf;
+ res = sum(a , b);
+ sprintf(outbuf,  "a + b = %d\n\r", res);
+ cout &lt;&lt; outbuf;
+ cout &lt;&lt; "Press q, enter";
+ cin &gt;&gt; ch;
+}</pre>
+Нетрудно увидеть, что в программе есть грубые фактические ошибки. Но формально, с точки зрения компилятора, все верно и программа
+скомпилируется
+<pre class="EnlighterJSRAW" data-enlighter-language="cpp">gcc selftest.cpp -lstdc++ -o selftest
+</pre>
+Этот пример говорит, что компилятор, даже такой совершенный, как gcc не может проверить, верна программа или нет.
+Тем не менее, внутри кода программы мы делаем самотест, который проверяет, что и сумма, и умножение должны быть
+верны. И если что-то не так, делаем досрочный выход из программы
+
+<img class="alignnone size-medium wp-image-593" src="http://nazarow.ru/wp-content/uploads/2022/11/Screenshot_20221118_173805-300x63.png" alt="" width="300" height="63" />
+
+Теперь исправим реализацию
+
+<img class="alignnone wp-image-594 size-large" src="http://nazarow.ru/wp-content/uploads/2022/11/Screenshot_20221118_173953-1024x479.png" alt="" width="640" height="299" />
+
+Скомпилируем и запустим заново
+
+<img class="alignnone wp-image-595 size-full" src="http://nazarow.ru/wp-content/uploads/2022/11/Screenshot_20221118_174024.png" alt="" width="827" height="188" />
+
+Программа выполняет самотестирование и убедившись, что все ОК, разрешает произвести действия,
+в данном случае расчеты.</p>
+Теги документа 
+
+</body></html>
+

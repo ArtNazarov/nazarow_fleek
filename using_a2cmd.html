@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html><head>
+<!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script><meta charset="utf-8"><title>My Site-Использование сканера a2cmd от EmsiSoft в Windows</title>
+</head><body>
+ <nav class="navbar navbar-light" style="background-color: #e3f2fd;">   
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">Nazarow.ru</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link" href="/">Главная</a></li>
+         <li class="nav-item"><a class="nav-link" href="/section_htmlbuilder.html">HtmlBuilder</a></li>
+         <li class="nav-item"><a class="nav-link" href="/section_linux.html">Linux</a></li>
+         <li  class="nav-item"><a class="nav-link" href="/section_yii2.html">Yii2</a></li>
+         <li  class="nav-item"><a class="nav-link" href="/section_android.html">Android</a></li>
+         <li  class="nav-item"><a class="nav-link" href="/section_windows.html">Windows</a></li>
+         <li  class="nav-item"><a class="nav-link" href="/section_etc.html">Прочие заметки</a></li>
+         <li class="nav-item"><a class="nav-link" href='/support.html'>Контакты</a></li>
+      </ul>
+      
+    </div>
+  </div>
+</nav> 
+<h1>Использование сканера a2cmd от EmsiSoft в Windows</h1><p>a2cmd /u
+
+Затем выполним быстрое сканирование системы<!--more-->
+
+a2cmd /quick
+
+Далее запустим более глубокий анализ дисков, допустим есть диск D: и диск E:
+
+Для проверки пишем
+
+a2cmd /f=D:,E: /dq /dda
+
+Достаточно тщательная проверка
+
+a2cmd /f=пути /pup /malware /traces /rk /memory /n /dda /dq
+
+Объяснение ключей запуска
+
+/pup - удалит потенциальное нежелательное ПО (реклама и прочее)
+
+/malware - удалит вредоносное ПО,
+
+/traces - ищет шпионское ПО,
+
+/rk - ищет программы удаленного управления ,
+
+/memory - проведет проверку памяти,
+
+/dq - быстрое удаление вредоносов,
+
+/dda - прямой доступ к диску,
+
+/f - список дисков или каталогов для проверки
+
+При желании можно дополнить ключами /a - проверять в архивах (замедлит скорость), /am - проверить почту, /cloud=0 (выключить анализ в облаке, не рекомендуется, по умолчанию включено)
+
+Вот и всё, теперь вы умеете пользоваться сканером, удачной борьбы с вирусами!
+
+После полной проверки рекомендуется выполнить перезагрузку или добавить ключ /rebootallowed в команду
+
+Добавляем пункт в контекстное меню проводника:
+
+1. Запускаем редактор реестра Win+R, regedit
+
+2. Переходим в ветку Компьютер\HKEY_CLASSES_ROOT\Directory\shell
+
+3. Создаем новый раздел CheckAV. Изменяем значение параметра Имя(по умолчанию) на Проверить в a2cmd
+
+4. Переходим в Компьютер\HKEY_CLASSES_ROOT\Directory\shell\checkAV
+
+5. Создаем раздел command. Значение параметра (Имя по умолчанию) меняем на c:\windows\system32\cmd.exe /K "C:\emsisoftcmd\a2cmd.exe /f=%1"
+
+6. Открываем любую папку в Проводнике, нажимаем по ней правой кнопкой, в контекстном меню должен появиться новый пункт "Проверить в a2cmd"
+
+Аналогичным образом можно создавать собственные пункты меню для других программ.
+
+Скачать сканер можно с сайта COMSS ( https://www.comss.ru/page.php?id=2159 )</p>
+Теги документа 
+
+</body></html>
+

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html><head>
+<!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script><meta charset="utf-8"><title>My Site-Сценарий sh для защиты каталога от удаления и модификации</title>
+</head><body>
+ <nav class="navbar navbar-light" style="background-color: #e3f2fd;">   
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">Nazarow.ru</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link" href="/">Главная</a></li>
+         <li class="nav-item"><a class="nav-link" href="/section_htmlbuilder.html">HtmlBuilder</a></li>
+         <li class="nav-item"><a class="nav-link" href="/section_linux.html">Linux</a></li>
+         <li  class="nav-item"><a class="nav-link" href="/section_yii2.html">Yii2</a></li>
+         <li  class="nav-item"><a class="nav-link" href="/section_android.html">Android</a></li>
+         <li  class="nav-item"><a class="nav-link" href="/section_windows.html">Windows</a></li>
+         <li  class="nav-item"><a class="nav-link" href="/section_etc.html">Прочие заметки</a></li>
+         <li class="nav-item"><a class="nav-link" href='/support.html'>Контакты</a></li>
+      </ul>
+      
+    </div>
+  </div>
+</nav> 
+<h1>Сценарий sh для защиты каталога от удаления и модификации</h1><p>код и пример
+
+<!--more-->
+<ol>
+ 	<li>Создаем файл protect.sh, даем ему права на выполнение
+<code>sudo <strong>chmod</strong> +x protect.sh</code> и вставляем код
+<code>function protect(){</code>
+<code>echo "apply protection"</code>
+<code>sudo chattr +i -R "$1"</code>
+<code>}</code>
+<code>function unprotect(){</code>
+<code>echo "apply unprotection"</code>
+<code>sudo chattr -i -R "$1"</code>
+<code>}</code>
+
+<code>if [ $# -lt 2 ] ; then</code>
+<code>echo " need 2 args command and path "</code>
+<code>fi</code>
+
+<code>action=$1</code>
+<code>path="$2"</code>
+<code>echo "Param count is $#"</code>
+<code>echo "Chosen action is $action"</code>
+<code>echo "Chosen path is $path"</code><code>case "$action" in</code>
+<code>"protect" )</code>
+<code>protect "$path"</code>
+<code>;;</code>
+<code>"unprotect" )</code>
+<code>unprotect "$path"</code>
+<code>;;</code>
+<code>*)</code>
+<code>echo "commands protect or unprotect require"</code>
+<code>esac</code>
+
+возможно, новую версию выложу <a href="https://raw.githubusercontent.com/ArtNazarov/protect.sh/main/protect.sh">здесь</a></li>
+ 	<li>Использование, примерСоздадим папку <code><strong>mkdir</strong> ~/important</code>Установим защиту
+<code>sudo <strong>./protect.sh</strong> protect important</code>
+
+Снимем защиту
+<code>sudo <strong>./protect.sh</strong> unprotect important</code></li>
+</ol></p>
+Теги документа 
+
+</body></html>
+

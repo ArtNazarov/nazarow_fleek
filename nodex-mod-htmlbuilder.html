@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html><head>
+<!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script><meta charset="utf-8"><title>My Site-Пример, как состыковать htmlbuilder и NodeJS</title>
+</head><body>
+ <nav class="navbar navbar-light" style="background-color: #e3f2fd;">   
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">Nazarow.ru</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link" href="/">Главная</a></li>
+         <li class="nav-item"><a class="nav-link" href="/section_htmlbuilder.html">HtmlBuilder</a></li>
+         <li class="nav-item"><a class="nav-link" href="/section_linux.html">Linux</a></li>
+         <li  class="nav-item"><a class="nav-link" href="/section_yii2.html">Yii2</a></li>
+         <li  class="nav-item"><a class="nav-link" href="/section_android.html">Android</a></li>
+         <li  class="nav-item"><a class="nav-link" href="/section_windows.html">Windows</a></li>
+         <li  class="nav-item"><a class="nav-link" href="/section_etc.html">Прочие заметки</a></li>
+         <li class="nav-item"><a class="nav-link" href='/support.html'>Контакты</a></li>
+      </ul>
+      
+    </div>
+  </div>
+</nav> 
+<h1>Пример, как состыковать htmlbuilder и NodeJS</h1><p>Пытливый читатель может задаться вопросом, а можно ли встроить скрипт на основе Node
+<!--more-->
+Как обычно, нам понадобится nodejs и npm, установим также fs и eval
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">sudo apt-get install nodejs npm
+sudo npm install fs -g
+npm install eval</pre>
+eval необходимо установить в ту же папку, где и генератор
+
+Теперь добавим выполнение файла со сценарием
+<pre class="EnlighterJSRAW" data-enlighter-language="js">let fs = require('fs');
+let evaluator = require('eval');
+
+fs.readFile('nodex.inp', 'utf8', (err, data) =&gt; {
+        //if (err) { console.error(err); return; };
+        let script  = evaluator(  data );
+        let result = script(); // call function
+        fs.writeFile('nodex.out', result, function (err) {
+        //if (err) return console.log(err);
+        });
+});</pre>
+Далее скомпилируем
+<pre class="EnlighterJSRAW" data-enlighter-language="cpp">gcc nodex.cpp -o nodex</pre>
+&nbsp;
+
+бинарник nodex
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">#include &lt;cstdlib&gt;
+
+int main(){
+
+std::system("node mod.js");
+
+}
+</pre>
+Теперь добавим сценарий в любой материал сайта
+
+<img class="alignnone wp-image-584 size-full" src="http://nazarow.ru/wp-content/uploads/2022/11/nodex1.png" alt="" width="695" height="313" />
+
+как видим после выполнения строка из функции попадает в собранную страницу
+
+<img class="alignnone wp-image-585 size-full" src="http://nazarow.ru/wp-content/uploads/2022/11/nodex2.png" alt="" width="834" height="313" /></p>
+Теги документа 
+
+</body></html>
+

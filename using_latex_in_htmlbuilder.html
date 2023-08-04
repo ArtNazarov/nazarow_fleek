@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html><head>
+<!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script><meta charset="utf-8"><title>My Site-Документы в формате LaTeX</title>
+</head><body>
+ <nav class="navbar navbar-light" style="background-color: #e3f2fd;">   
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">Nazarow.ru</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link" href="/">Главная</a></li>
+         <li class="nav-item"><a class="nav-link" href="/section_htmlbuilder.html">HtmlBuilder</a></li>
+         <li class="nav-item"><a class="nav-link" href="/section_linux.html">Linux</a></li>
+         <li  class="nav-item"><a class="nav-link" href="/section_yii2.html">Yii2</a></li>
+         <li  class="nav-item"><a class="nav-link" href="/section_android.html">Android</a></li>
+         <li  class="nav-item"><a class="nav-link" href="/section_windows.html">Windows</a></li>
+         <li  class="nav-item"><a class="nav-link" href="/section_etc.html">Прочие заметки</a></li>
+         <li class="nav-item"><a class="nav-link" href='/support.html'>Контакты</a></li>
+      </ul>
+      
+    </div>
+  </div>
+</nav> 
+<h1>Документы в формате LaTeX</h1><p><p>Язык разметки LaTeX позволяет с помощью развитой системы разметки подготовливать
+технические документы с формулами, которые потом конвертируется в html формат.
+Разрабатывался Дональдом Кнутом и Лесли Лампортом</p>
+
+<p>Установим mdtex2html c помощью pip</p>
+
+<code>pip install mdtex2html</code>
+
+<p>Создадим файл latexp.py и напишем конвертер</p>
+
+<pre class="EnlighterJSRAW" data-enlighter-language="python">
+<code>
+import mdtex2html
+
+def conv(x):
+        return mdtex2html.convert(x)
+
+# read file
+
+with open("latexpx.inp") as fin:
+        content_latex = fin.readlines()
+
+# convert each line
+
+content_html = list( map ( lambda line: conv(line), content_latex))
+
+# write file
+
+with open("latexpx.out", "w") as fout:
+        fout.writelines(content_html)
+
+</code>
+</pre>
+
+<p>Подготовим обертку на С++</p>
+<pre>
+<code>
+#include <cstdlib>
+
+int main(){
+
+std::system("python3 latexp.py");
+
+}
+</code>
+</pre>
+
+<p>Соберем файл latexpx</p>
+
+<code>gcc latexpx.cpp -o latexpx</code>
+
+<p>Из каталога скопируем в папку с программой файлы latexpx latexp.py</p>
+
+<p>На какой-либо странице вставим разметку</p>
+
+<img src="/images/latex1.png">
+
+<p>и запустим генератор</p>
+
+<p>Результат</p>
+
+<img src="/images/latex2.png">
+</p>
+Теги документа 
+
+</body></html>
+
