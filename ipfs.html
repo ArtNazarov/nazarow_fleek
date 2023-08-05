@@ -1,8 +1,12 @@
-<html><head><!-- CSS only -->
+<!DOCTYPE html>
+<html><head>
+<!-- CSS only -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script><meta charset="utf-8"><title>My Site-HtmlBuilder</title></head><body> <nav class="navbar navbar-light" style="background-color: #e3f2fd;">   
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script><meta charset="utf-8"><title>My Site-IPFS</title>
+</head><body>
+ <nav class="navbar navbar-light" style="background-color: #e3f2fd;">   
   <div class="container-fluid">
     <a class="navbar-brand" href="/">Nazarow.ru</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -23,7 +27,29 @@
     </div>
   </div>
 </nav> 
-<h1>Тема: HtmlBuilder</h1> <a href="/section_htmlbuilder.html">#</a> &nbsp;|&nbsp; <a href="/o/caption-DESC/section_htmlbuilder.html">&#x25BC;</a>&nbsp;По заголовку&nbsp;<a href="/o/caption-ASC/section_htmlbuilder.html">&#x25B2;</a>&nbsp;|&nbsp; &nbsp;|&nbsp; <a href="/o/dt-DESC/section_htmlbuilder.html">&#x25BC;</a>&nbsp;По дате&nbsp;<a href="/o/dt-ASC/section_htmlbuilder.html">&#x25B2;</a>&nbsp;|&nbsp; Материалы :<ul><li><a href="wysiwyg_express_in_htmlbuilder.html">WYSIWYG (визуальный редактор) в HtmlBuilder</a></li><li><a href="ipfs.html">IPFS</a></li></ul><div class="paginator"><a href="/o/caption-DESC/section_htmlbuilder.html">1</a> <a href="/o/caption-DESC/section_htmlbuilder_2.html">2</a>  3 </div><script>
+<h1>IPFS</h1><p>
+Чтобы опубликовать сайт в децентрализованной сети IPFS
+
+1. Создайте аккаунт https://app.fleek.co/ с помощью Github
+2. Создайте новый проект на github и добавьте туда файлы сборки
+3. Нажмите add new site в разделе hosting
+4. Выберите проект в списке
+5. Оставьте тип сборки Other
+6. Дождитесь окончания развертывания
+7. Имя хоста вида sitename.on.fleek.co можно поменять в настройках позднее.
+
+Примечания - каждое новое развертывание происходит в сетевой узел вида
+https://ipfs.fleek.co/ipfs/Qmbb28WDFnt7PxE3cmQna2AsZ92TH1Mc6vjaUDgGhZVyLs
+, где Qmbb28WDFnt7PxE3cmQna2AsZ92TH1Mc6vjaUDgGhZVyLs - хеш очередной сборки
+
+Узнать текущий хеш можно с помощью пункта verify on ipfs
+
+До публикации хеш не рассчитывается заранее и не может быть известен генератору,
+поэтому следует использовать домен, выданный на fleek.
+
+Тем не менее сборка будет доступен по хешу, например, https://ipfs.io/ipfs/Qmbb28WDFnt7PxE3cmQna2AsZ92TH1Mc6vjaUDgGhZVyLs/</p>
+Теги документа 
+<script>
 document.addEventListener("DOMContentLoaded", function() {
  use_host = 'nazarow.ru';
 
@@ -41,4 +67,6 @@ navLinks.forEach(link => {
 });
 
 });
-</script></body>
+</script>
+</body></html>
+
