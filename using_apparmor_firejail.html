@@ -172,12 +172,37 @@ kdialog нужен для предупреждения, что программ�
 Теги документа 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
- use_host = 'nazarow.ru';
 
-if (window.location.hostname != "nazarow.ru") {
- console.log('using ipfs hostname for main menu');
-  use_host = 'nazarow.on.fleek.co';
-}
+use_host = 'nazarow.ru'; // main url
+
+let current_host = window.location.hostname;
+
+// Mirrors
+
+let fleek_url = 'nazarow.on.fleek.co';
+let render_url = 'nazarow.onrender.com';
+let firebase_url = 'nazarow-a84c0.web.app';
+let cloudflare_url = 'nazarow.pages.dev';
+let vercel_url = ' nazarow.vercel.app';
+
+// Check mirror
+
+let isMain = current_host.includes("nazarow.ru");
+let isRender = current_host.includes("onrender");
+let isFirebase = current_host.includes("web.app");
+let isCloudFlare = current_host.includes("pages.dev");
+let isVercel = current_host.includes("vercel"); 
+
+if (!isMain) {
+    if (isRender) { use_host = fleek_url; } else
+    if (isFirebase) { use_host = firebase_url; } else
+   if (isCloudFlare) { use_host = cloudflare_url; } else
+   if (isVercel) { use_host = vercel_url; } else
+        { use_host = fleek_url; }; // as default
+   
+};
+
+
 
 const host = use_host; // заменить на нужный хост
 const navLinks = document.querySelectorAll(".nav-link"); // выбираем все элементы с классом nav-menu

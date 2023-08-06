@@ -25,12 +25,37 @@
 </nav> 
 <h1>Тема: yii2</h1> <a href="/section_yii2.html">#</a> &nbsp;|&nbsp; <a href="/o/caption-DESC/section_yii2.html">&#x25BC;</a>&nbsp;По заголовку&nbsp;<a href="/o/caption-ASC/section_yii2.html">&#x25B2;</a>&nbsp;|&nbsp; &nbsp;|&nbsp; <a href="/o/dt-DESC/section_yii2.html">&#x25BC;</a>&nbsp;По дате&nbsp;<a href="/o/dt-ASC/section_yii2.html">&#x25B2;</a>&nbsp;|&nbsp; Материалы :<ul><li><a href="install-yii2-in-ubuntu-kinetic-with-xampp.html">Установка Yii2 framework в Ubuntu Kinetic Kudu и XAMPP</a></li><li><a href="lk-yii2.html">Делаем личный кабинет пользователю на Yii2</a></li><li><a href="yii2_translation.html">Интернационализация в Yii2 с использованием констант</a></li></ul><div class="paginator"> 1 </div><script>
 document.addEventListener("DOMContentLoaded", function() {
- use_host = 'nazarow.ru';
 
-if (window.location.hostname != "nazarow.ru") {
- console.log('using ipfs hostname for main menu');
-  use_host = 'nazarow.on.fleek.co';
-}
+use_host = 'nazarow.ru'; // main url
+
+let current_host = window.location.hostname;
+
+// Mirrors
+
+let fleek_url = 'nazarow.on.fleek.co';
+let render_url = 'nazarow.onrender.com';
+let firebase_url = 'nazarow-a84c0.web.app';
+let cloudflare_url = 'nazarow.pages.dev';
+let vercel_url = ' nazarow.vercel.app';
+
+// Check mirror
+
+let isMain = current_host.includes("nazarow.ru");
+let isRender = current_host.includes("onrender");
+let isFirebase = current_host.includes("web.app");
+let isCloudFlare = current_host.includes("pages.dev");
+let isVercel = current_host.includes("vercel"); 
+
+if (!isMain) {
+    if (isRender) { use_host = fleek_url; } else
+    if (isFirebase) { use_host = firebase_url; } else
+   if (isCloudFlare) { use_host = cloudflare_url; } else
+   if (isVercel) { use_host = vercel_url; } else
+        { use_host = fleek_url; }; // as default
+   
+};
+
+
 
 const host = use_host; // заменить на нужный хост
 const navLinks = document.querySelectorAll(".nav-link"); // выбираем все элементы с классом nav-menu

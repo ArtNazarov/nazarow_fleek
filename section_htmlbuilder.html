@@ -25,12 +25,37 @@
 </nav> 
 <h1>Тема: HtmlBuilder</h1> <a href="/section_htmlbuilder.html">#</a> &nbsp;|&nbsp; <a href="/o/caption-DESC/section_htmlbuilder.html">&#x25BC;</a>&nbsp;По заголовку&nbsp;<a href="/o/caption-ASC/section_htmlbuilder.html">&#x25B2;</a>&nbsp;|&nbsp; &nbsp;|&nbsp; <a href="/o/dt-DESC/section_htmlbuilder.html">&#x25BC;</a>&nbsp;По дате&nbsp;<a href="/o/dt-ASC/section_htmlbuilder.html">&#x25B2;</a>&nbsp;|&nbsp; Материалы :<ul><li><a href="ipfs.html">IPFS</a></li><li><a href="test-crystal-bin-using-pytest.html">Пример расширения на Crystal и его тестирование с помощью PyTest</a></li><li><a href="create-module-for-htmlbuilder-using-python.html">Пишем модуль для HtmlBuilder на языке Python</a></li><li><a href="htmlbuilder-items-template-cards.html">Работа с шаблоном элементов списка в HtmlBuilder - делаем карточки для блога</a></li><li><a href="markdown-to-html-extension.html">Пишем расширение для конвертации markdown в html для HtmlBuilder</a></li><li><a href="phpx-module-htmlbuilder.html">Пример, как можно подключить PHP к генератору HtmlBuilder</a></li><li><a href="java_module_htmlbuilder.html">Пример модуля на Java</a></li></ul><div class="paginator"> 1 <a href="section_htmlbuilder_2.html">2</a> <a href="section_htmlbuilder_3.html">3</a> </div><script>
 document.addEventListener("DOMContentLoaded", function() {
- use_host = 'nazarow.ru';
 
-if (window.location.hostname != "nazarow.ru") {
- console.log('using ipfs hostname for main menu');
-  use_host = 'nazarow.on.fleek.co';
-}
+use_host = 'nazarow.ru'; // main url
+
+let current_host = window.location.hostname;
+
+// Mirrors
+
+let fleek_url = 'nazarow.on.fleek.co';
+let render_url = 'nazarow.onrender.com';
+let firebase_url = 'nazarow-a84c0.web.app';
+let cloudflare_url = 'nazarow.pages.dev';
+let vercel_url = ' nazarow.vercel.app';
+
+// Check mirror
+
+let isMain = current_host.includes("nazarow.ru");
+let isRender = current_host.includes("onrender");
+let isFirebase = current_host.includes("web.app");
+let isCloudFlare = current_host.includes("pages.dev");
+let isVercel = current_host.includes("vercel"); 
+
+if (!isMain) {
+    if (isRender) { use_host = fleek_url; } else
+    if (isFirebase) { use_host = firebase_url; } else
+   if (isCloudFlare) { use_host = cloudflare_url; } else
+   if (isVercel) { use_host = vercel_url; } else
+        { use_host = fleek_url; }; // as default
+   
+};
+
+
 
 const host = use_host; // заменить на нужный хост
 const navLinks = document.querySelectorAll(".nav-link"); // выбираем все элементы с классом nav-menu
