@@ -4,7 +4,12 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script><meta charset="utf-8"><title>My Site-Использование редакторов vi/vim и компиляция С++ программы</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<link href="/pagefind/pagefind-ui.css" rel="stylesheet">
+<script src="/pagefind/pagefind-ui.js"></script>
+<meta charset="utf-8">
+<title>My Site-Использование редакторов vi/vim и компиляция С++ программы</title>
+
 </head><body>
  <nav class="navbar navbar-light" style="background-color: #e3f2fd;">   
   <div class="container-fluid">
@@ -27,6 +32,13 @@
     </div>
   </div>
 </nav> 
+
+<div id="search"></div>
+<script>
+    window.addEventListener('DOMContentLoaded', (event) => {
+        new PagefindUI({ element: "#search", showSubResults: true });
+    });
+</script>
 <h1>Использование редакторов vi/vim и компиляция С++ программы</h1><p><p style="text-align: justify;">В статье рассматриваются базовые приемы для работы в редакторах vi/vim с примером компиляции простейшего консольного приложения из репозитория.</p>
 <p style="text-align: justify;">Поскольку основная трудность состоит в специфике процесса правки исходника (шутка про самый частый вопрос как выйти из редактора vi возникла неспроста), упор делается на объяснение способов добавления, удаления, поиска, вставки и копирования, сохранения исходника.</p>
 <!--more-->
@@ -333,7 +345,8 @@ Ctrl-v (также Ctrl-q) - выбрать прямогольный блок
 <p style="text-align: justify;">Отметим для полноты картины, что для написания установочного пакета в рамках ArchLinux необходимо также написать <em>PKGBUILD</em> файл, в котором детализирован процесс сборки и установки, там и применяется утилита make. Затем с помощью утилиты makepkg создается установочный pkg файл. Имея PKGBUILD файл, пользователь может установить программу с помощью команды makepkg -si из исходников или путем вызова pacman -U имя_пакетного_файла
 После сборки пакета становится возможным распространять программу через AUR или другую пакетную систему.</p>
 </p>
-Теги документа 
+<i>Теги документа</i> 
+
 <script>
 document.addEventListener("DOMContentLoaded", function() {
 
