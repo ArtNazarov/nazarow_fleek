@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html><head>
-<meta charset="utf-8">
+<html><head><meta charset="utf-8">
 <meta name="description" content="Author: Nazarov A.A, Orenburg, Russia">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -16,10 +15,31 @@
   <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
   <script type="text/babel" src="/index.js"></script>
 
+<style> 
+div.paginator > a:visited,
+div.paginator > a:link {
+    width: 50px;
+    height: 50px;
+    background-color: #dc3545; /* Bootstrap red */
+    color: #fff;
+    transition: background-color 0.2s;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
 
+div.paginator > a:hover,
+div.paginator > a:focus {
+    background-color: #f233e6;
+    color: #fff;
+}
+
+    </style>
 <!-- CSS only -->
 <link href="/style.css" rel="stylesheet" />
-
+<link href="https://fonts.googleapis.com/css?family=PT+Sans&display=swap" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
@@ -27,9 +47,10 @@
 
 <link href="/pagefind/pagefind-ui.css" rel="stylesheet">
 <script src="/pagefind/pagefind-ui.js"></script>
-<title>My Site-Пишем утилиту для формирования hosts файла по списку доменов</title>
+<title>&#9883; Личный блог Назарова А.А., Оренбург, 2022 - 2025-Пишем утилиту для формирования hosts файла по списку доменов</title>
 
 </head><body>
+<!-- <div class="sp"></div> -->
 <div id="app"></div>
 <div id="search"></div>
 <script>
@@ -37,8 +58,9 @@
         new PagefindUI({ element: "#search", showSubResults: true });
     });
 </script>
+<main class="perfection mx-auto w-90">
 <h1>Пишем утилиту для формирования hosts файла по списку доменов</h1>
-<p>Рассмотрим задачу - по списку вредоносных доменов создать файл hosts<!--more-->
+Рассмотрим задачу - по списку вредоносных доменов создать файл hosts<!--more-->
 
 Рассмотрим файл https://raw.githubusercontent.com/greatis/Anti-WebMiner/master/blacklist.txt , он содержит список доменов, которые распространяют майнеры. Чтобы сформировать hosts файл нужно дописать 0.0.0.0 к имени каждого домена через пробел
 <pre style='background:#fff'>
@@ -47,8 +69,8 @@
 <code>   with open(f_in, "r") as f: </code>
 <code>       lines = f.readlines() </code>
 <code>       for index, line in enumerate(lines): </code>
-<code>           lines<a href="index.html">Главная</a> = str_to_add + " " + line.strip() + "\n" </code>
-<code>           print(lines<a href="index.html">Главная</a>) </code>
+<code>           lines<a href="/index.html">Главная</a> = str_to_add + " " + line.strip() + "\n" </code>
+<code>           print(lines<a href="/index.html">Главная</a>) </code>
 
 <code>   with open(f_out, "w+") as f: </code>
 <code>       for line in lines: </code>
@@ -67,19 +89,22 @@
 <code>main()</code>
 </pre>
 Для этого можно воспользоваться следующим алгоритмом - читаем все строки в массив из входного файла, затем делаем преобразование с каждой строкой (добавляем переданную строку к началу очередной) и записываем результаты в выходной файл. Чтобы программа запускалась из командной строки нужно подключить модуль sys, первым и вторым параметром передадим входной и выходной файл, третьим строку 0.0.0.0.  После сборки исполнимого файла вызвать утилиту можно будет так ./adder blacklists.txt hosts-add.txt 0.0.0.0
-Получившийся список можно сохранить в файле /etc/hosts в Linux, а в Windows использовать в утилите Acrylic DNS Proxy</p>
-<i>Теги документа</i> 
+Получившийся список можно сохранить в файле /etc/hosts в Linux, а в Windows использовать в утилите Acrylic DNS Proxy
+</main>
+<div class="ps-4">
+<i>Теги документа</i>
 
+</div> 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
 
-use_host = 'nazarow.ru'; // main url
+use_host = 'artnazarov.github.io'; // main url
 
 let current_host = window.location.hostname;
 
 // Mirrors
 
-let fleek_url = 'nazarow.on.fleek.co';
+// let fleek_url = 'nazarow.on.fleek.co';
 let render_url = 'nazarow.onrender.com';
 let firebase_url = 'nazarow-a84c0.web.app';
 let cloudflare_url = 'nazarow.pages.dev';
@@ -87,18 +112,18 @@ let vercel_url = ' nazarow.vercel.app';
 
 // Check mirror
 
-let isMain = current_host.includes("nazarow.ru");
+let isMain = current_host.includes("artnazarov.github.io");
 let isRender = current_host.includes("onrender");
 let isFirebase = current_host.includes("web.app");
 let isCloudFlare = current_host.includes("pages.dev");
 let isVercel = current_host.includes("vercel"); 
 
 if (!isMain) {
-    if (isRender) { use_host = fleek_url; } else
+    /* if (isRender) { use_host = fleek_url; } else */
     if (isFirebase) { use_host = firebase_url; } else
    if (isCloudFlare) { use_host = cloudflare_url; } else
    if (isVercel) { use_host = vercel_url; } else
-        { use_host = fleek_url; }; // as default
+        { use_host = vercel_url; }; // as default
    
 };
 
@@ -114,15 +139,18 @@ navLinks.forEach(link => {
 
 });
 </script>
-<footer class="py-3 my-4">
+ <footer class="py-3 my-4">
     <ul class="nav justify-content-center border-bottom pb-3 mb-3">
       <li class="nav-item"><a href="mailto:awnlwt1ty@mozmail.com" class="nav-link2 px-2 text-muted">Электропочта</a></li>
       <li class="nav-item"><a target="_blank" href="https://github.com/artnazarov" class="nav-link2 px-2 text-muted">Github</a></li>
+      <li class="nav-item"><a target="_blank" href="https://dartn-e2911.web.app/" class="nav-link2 px-2 text-muted">Старый сайт</a></li>
+      <li class="nav-item"><a target="_blank" href="https://nzv-portfolio.web.app/" class="nav-link2 px-2 text-muted">Новый сайт</a></li>
+      <li class="nav-item"><a target="_blank" href="https://t.me/artnazarov_bot" class="nav-link2 px-2 text-muted">Бот в Telegram</a></li>
      </ul>
-    <p class="text-center text-muted">© 2022-2024 Артем Назаров, Оренбург. Портировано с Wordpress на HtmlBuilder</p>
+    <p class="text-center text-muted">© 2022-2024 Артем Назаров, Оренбург. Портировано с Wordpress на HtmlBuilder. Используется Bootstrap 5</p>
+    <p class="text-center text-muted">Сгенерировано страниц: 96</p>
   </footer>
 
 
 
 </body></html>
-
